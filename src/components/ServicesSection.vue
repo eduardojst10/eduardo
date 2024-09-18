@@ -31,7 +31,7 @@ export default {
 </script>
 
 <style lang="scss" >
-@import '@/assets/_variables.scss';
+@import '../assets/_variables.scss';
 
 #services {
     //padding: auto;

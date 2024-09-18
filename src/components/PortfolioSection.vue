@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/_variables.scss';
+@import '../assets/_variables.scss';
 
 .portfolio-title{
         font-size: 2.5rem;

@@ -23,7 +23,7 @@
 
 
 <script>
-import fotoUM from '@/assets/fotoUM.jpg';
+import fotoUM from '../assets/fotoUM.jpg';
 export default {
   name: "Banner",
   data() {
@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/_variables.scss';
+@import '../assets/_variables.scss';
 
 
 body {
@@ -69,7 +69,7 @@ body {
   position: relative;
   height: 100vh;
   width: 100%;
-  background-image: url('@/assets/background.jpg');
+  background-image: url('../assets/background.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/_variables.scss';
+@import '../assets/_variables.scss';
 #menuToggle {
   position: fixed;
   top: 50px;

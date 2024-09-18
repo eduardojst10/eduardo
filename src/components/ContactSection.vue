@@ -102,7 +102,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/_variables.scss';
+@import '../assets/_variables.scss';
 
 #contact{
     background-color:$main-bg-color;

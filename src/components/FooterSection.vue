@@ -48,7 +48,7 @@ export default {
     }    
 </script>
 <style scoped lang="scss">
-@import '@/assets/_variables.scss';
+@import '../assets/_variables.scss';
 
 #footer {
     background-color:$main-bg-color;

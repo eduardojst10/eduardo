@@ -91,7 +91,7 @@ export default {
 
 
 <style scoped lang="scss"  >
-@import '@/assets/_variables.scss';
+@import '../assets/_variables.scss';
     #about{
        padding: 5%;
        h2{  
