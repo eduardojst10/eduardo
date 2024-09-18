@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHashHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
 
 const router = createRouter({
   history: createWebHashHistory('/portfolio-Edu/'),
@@ -7,21 +7,22 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
-    }
+      component: HomeView,
+    },
+    // Add other routes here
   ],
-  scrollBehavior(to, from, SavedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
-      const el = window.location.href.split("#")[1];
-      if (el.length) {
-        document.getElementById(el).scrollIntoView({ behavior: "smooth" });
+      const el = to.hash.slice(1); // Remove '#' from the hash
+      if (el) {
+        document.getElementById(el)?.scrollIntoView({ behavior: 'smooth' });
       }
-    } else if (SavedPosition) {
-      return SavedPosition;
+    } else if (savedPosition) {
+      return savedPosition;
     } else {
-      document.getElementById("app").scrollIntoView({ behavior: "smooth" });
+      document.getElementById('app')?.scrollIntoView({ behavior: 'smooth' });
     }
   },
-})
+});
 
-export default router
+export default router;

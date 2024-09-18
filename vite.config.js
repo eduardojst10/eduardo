@@ -1,21 +1,17 @@
-import { fileURLToPath, URL } from 'node:url'
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vuetify from 'vite-plugin-vuetify'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import vuetify from 'vite-plugin-vuetify';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  base: '/portfolio-Edu/',
+  base: '/portfolio-Edu/', // Set the base path to your GitHub repository name
   plugins: [
-		vue(),
-		vuetify({ autoImport: true }),
-	],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    }
-  },
+    vue(),
+    vuetify({
+      autoImport: true,
+    }),
+  ],
   define: {
-    "global": {},
+    'process.env': {},
   },
-})
+});
+
