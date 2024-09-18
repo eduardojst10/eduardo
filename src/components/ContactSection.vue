@@ -14,46 +14,58 @@
                      Connect
                  </h2>
                  <p>
-                    You can e-mail me through this channel!
+                    You can email me through this channel!
                  </p>
             </v-col>
            
             <v-col class="form"  xs="12"  sm="12" md="6" >
-                <v-form ref='form'>
-                <v-text-field
-                    :rules='nameRules'
-                    v-model='name'
-                    bg-color="grey-lighten-2"
-                    color="cyan"
-                    class='text-field montserrat  my-8'
-                    placeholder="name"
-                    outlined 
+                <!-- simple HTML form - posts to Formspree -->
+                <form
+                    action="https://formspree.io/f/xrbzvvay"
+                    method="POST"
+                >
+                    <!-- name Input -->
+                    <v-text-field
+                        name="name"
+                        label="name"
+                        :rules="nameRules"
+                        required
+                        class="text-field montserrat my-8"
+                        outlined
                     >
-                </v-text-field>
-                <v-text-field
-                    :rules='emailRules'
-                    v-model='email'
-                    class='text-field montserrat my-8'
-                    placeholder="email"
-                    outlined 
+                    </v-text-field>
+
+                    <!-- email Input -->
+                    <v-text-field
+                        name="email"
+                        label="email"
+                        :rules="nameRules"
+                        type="email"
+                        required
+                        bg-color="grey-lighten-2"
+                        class="text-field montserrat my-8"
+                        outlined
                     >
-                </v-text-field>
-                <v-textarea
-                    :rules='messageRules'
-                    v-model='message'
-                    bg-color="grey-lighten-2"
-                    color="cyan"
-                    class='montserrat my-8'
-                    placeholder="message"
-                    outlined
-                ></v-textarea>
-                <v-btn outlined medium
-                    @click='submit()'
-                    :loading='loading'
-                    class='montserrat  btn' >
+                    </v-text-field>
+
+                    <!-- message Textarea -->
+                    <v-textarea
+                        name="message"
+                        label="message"
+                        :rules="messageRules"
+                        required
+                        
+                        bg-color="grey-lighten-2"
+                        class="text-area montserrat my-8"
+                        outlined
+                    >
+                    </v-textarea>
+
+                    <!-- Submit Button -->
+                    <v-btn type="submit" outlined medium class="montserrat btn">
                     Submit
-                </v-btn>    
-                </v-form>
+                    </v-btn>
+              </form>  
             </v-col>
         </v-row>
         </v-container>
@@ -61,50 +73,33 @@
 </template>
 
 <script>
-    import {client} from '../axiosClient.js';
-    export default { 
-        name: 'contact',components: {
-        },
-        data(){ 
-            return{
-                loading:false,
-                name:"" ,
-                nameRules: [v => !!v || 'Name is required'],
-                email:"",
-                emailRules: [
-                    v => !!v || 'E-mail is required',
-                    v => /.+@.+/.test(v) || 'E-mail must be valid',
-                  ],
-                message:"",
-                messageRules: [v => !!v || 'Message cant be empty'],
-                }
-        },
-        methods:{
-            submit(){
-                this.loading=true;
-                if(this.$refs.form.validate()){
-                //fetch the api
-                //let url='http://127.0.0.1:8000/submit_message';
-                let  params={
-                    name:this.name,
-                    email:this.email,
-                    message:this.message,
-                };
-                console.log(JSON.stringify(params))
-                client.post('submit_message',params)
-                    .then((res)=>{
-                        console.log(JSON.stringify(res));
-                        this.loading=false;
-                        this.$refs.form.reset();
-                        this.message='message sent successfull';
-                     })             
-                 }
-                this.loading=false;                  
-            },        
-        },
-                
-    }    
-        </script>
+export default {
+    name: "ContactSection",
+  data() {
+    return {
+      name: "",
+      email: "",
+      message: "",
+      nameRules: [(v) => !!v || "Name is required"],
+      emailRules: [
+        (v) => !!v || "E-mail is required",
+        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      ],
+      messageRules: [(v) => !!v || "Message can't be empty"],
+    };
+  },
+  methods: {
+    submitForm() {
+      if (this.$refs.form.validate()) {
+        // Proceed with the form submission logic or Formspree submission
+        console.log("Form is valid, proceed to submit!");
+      } else {
+        console.log("Form is invalid, check the fields.");
+      }
+    },
+  },
+};
+</script>
 
 <style scoped lang="scss">
 @import '@/assets/_variables.scss';
@@ -131,36 +126,90 @@
     }
 }
     
-.form{
-    .text-field{
-        height:55px;
-        // padding:0;
-         background-color: #d3d3d3;
-        // background-color:var(--gray);
-        
+.form {
+    .text-field {
+        height: 55px;
+        background-color: #d3d3d3;
+        font-weight: bold;
+
+        /* Change label color */
+        :deep(.v-label) {
+        color: $highlight-color !important;
+        }
+
+        /* Change label color when active or focused */
+        :deep(.v-label.v-label--active) {
+        color: white !important;
+        }
+
+        /* Change label color when there's an error */
+        :deep(.v-label.error--text) {
+        color: white !important;
+        }
+
+        /* Override the validation message color */
+        :deep(.v-messages__message) {
+        color: white !important;
+        }
+
+        :deep(.v-messages__message.error--text) {
+        color: white !important;
+        }
+
+        /* Change the border color when there's an error */
+        :deep(.v-input--is-error .v-input__slot) {
+        border-color: white !important;
+        }
     }
-    .btn {
-        font-weight: bolder;            
-        border-width: 2px;            
-        border-color: $highlight-color;        
-        color: $highlight-color;               
-        background-color: transparent; 
-        text-transform: uppercase;    
-        transition: all 0.3s ease;    /* smooth transition for hover */
-
-  &:hover {
-    background-color: $highlight-color;  
-    color: white;               
-  }
-
-  &:focus {
-    outline: none;              /* Remove the default outline on focus */
-  }
-
-  &:active {
-    background-color: $dark-accent;  
-  }
 }
- 
+
+.text-area {
+    font-weight: bold;
+    :deep(.v-label) {
+      color: $highlight-color !important;
+    }
+
+    :deep(.v-label.v-label--active) {
+      color: white !important;
+    }
+
+    :deep(.v-label.error--text) {
+      color: white !important;
+    }
+
+    :deep(.v-messages__message) {
+      color: white !important;
+    }
+
+    :deep(.v-messages__message.error--text) {
+      color: white !important;
+    }
+
+    :deep(.v-input--is-error .v-input__slot) {
+      border-color: white !important;
+    }
+}
+
+.btn {
+    font-weight: bolder;
+    border-width: 2px;
+    border-color: $highlight-color;
+    color: $highlight-color;
+    background-color: transparent;
+    text-transform: uppercase;
+    transition: all 0.3s ease; /* smooth transition for hover */
+
+    &:hover {
+      background-color: $highlight-color;
+      color: white;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:active {
+      background-color: $dark-accent;
+    }
 }
 </style>
