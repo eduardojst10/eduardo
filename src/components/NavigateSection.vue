@@ -65,7 +65,7 @@ export default {
   position: fixed;
   top: 50px;
   left: 50px;
-  z-index: 2;
+  z-index: 11;
 }
 
 #menuToggle input {
@@ -77,7 +77,7 @@ export default {
   left: -5px;
   cursor: pointer;
   opacity: 0;
-  z-index: 3;
+  z-index: 12;
 }
 
 /* Hamburger icon bars */
@@ -90,7 +90,8 @@ export default {
   border-radius: 3px;
   transition: transform 0.5s, opacity 0.5s ease;
   position: relative;
-  z-index: 1;
+   z-index: 10;
+
 }
 
 /* Transformations when menu is open */
@@ -119,6 +120,7 @@ export default {
   transform-origin: 0% 0%;
   transform: translate(-100%, 0);
   transition: transform 0.5s ease-in-out;
+  z-index:9;
 }
 
 #menuToggle input:checked ~ ul {

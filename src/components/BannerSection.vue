@@ -28,7 +28,7 @@ export default {
   name: "Banner",
   data() {
     return {
-      fullText: "Welcome to my personal website, where I present myself.",
+      fullText: "Welcome, step into my digital world.",
       typedText: "",
       currentIndex: 0,
       fotoUM,
@@ -81,7 +81,7 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.3); // Adjust opacity and color as needed
-    z-index: 1;
+    z-index: -1;
   }
 
 }
@@ -92,7 +92,7 @@ body {
     justify-content: space-between;
     align-items: center;
     position: relative;
-    z-index: 2;
+
 }
     
 .text-section {
@@ -141,7 +141,7 @@ body {
   display: flex;
   justify-content: center;
   position: relative;
-  z-index: 2;
+
 
   .btn {
         border: 2px solid #ffffff;
