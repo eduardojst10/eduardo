@@ -37,12 +37,7 @@ export default {
         },
         methods:{
             scrolltop(){
-                this.intervalId = setInterval(() => {
-                if (window.scrollY === 0) {
-                clearInterval(this.intervalId)
-                }
-                window.scroll(0, window.scrollY - 50)
-            }, 20)
+                window.scrollTo({top: 0, behaviour: 'smooth' });
             }
         }
     }    
