@@ -9,9 +9,13 @@
                         v-bind="props"
                         :image=project.img
                         class="project-card"
-                        elevation="2"
+                        elevation="8"
                         outlined
                     >
+                    <div class="interaction-hint" v-if="!isHovering">
+                        <v-icon  class="touch-icon">mdi-circle-outline</v-icon>
+                        <!--<span class="interaction-tap">Hover to interact</span>-->
+                    </div>
                         <div
                             :class="['hover-overlay', { 'hover-active': isHovering }]"
                         >
@@ -19,7 +23,7 @@
                             <v-card-subtitle class="card-subtitle white--text">{{ project.description }}</v-card-subtitle> 
                             <v-btn
                                 v-if="project.buttonOption === 'Download'"
-                                @click="downloadItem({url: project.downloadUrl, label: project.name})"
+                                :href="project.downloadUrl"
                                 :disabled="isDownloading"
                                 class="visit-btn mx-auto my-1 mt-2"
                             >
@@ -45,22 +49,36 @@
 </template>
 
 <script>
-
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import {useStore} from '../stores/counter'
 import axios  from 'axios';
 export default {
     name: 'portfolio',
-    mounted(){},
     setup(){
         const store = useStore();
         const projectChunks = store.projectChunks
         const isDownloading = ref(false)
+        const isMobile = ref(window.innerWidth <= 768)
+    
+        const checkMobile = () => {
+            isMobile.value = window.innerWidth <= 768
+        }
+
         return {
             projectChunks,
-            isDownloading
+            isDownloading,
+            isMobile,
+            checkMobile
 
-    };},
+        };
+    },
+    mounted(){
+        this.checkMobile()
+        window.addEventListener('resize', this.checkMobile);
+    },
+    unmounted(){
+        window.removeEventListener('resize', this.checkMobile);
+    },
     methods:{
         downloadItem({url,label}){
             this.isDownloading = true; 
@@ -108,7 +126,54 @@ export default {
     flex-direction:column;
     justify-content: center;
     align-items: center; 
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    //border: 2px solid $gray;
+    border-radius: 10px;
 }
+
+
+.interaction-hint{
+    position: absolute;
+    //transform: translate(-50%, -50%);
+    left: 0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    color: $gray;
+    opacity: 0.8;
+}
+
+.interaction-tap{
+    position: absolute;
+    left: 0;
+    bottom:16px;
+    width: 100%;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.touch-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: white;
+    font-size: 3rem;
+    animation: pulse 2s infinite;
+    opacity: 0.4;
+}
+
+@keyframes pulse {
+    0%, 100% {
+    transform: translate(-50%, -50%) scale(1); /* Ensure translate stays for centering */
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1); /* Slightly increase size for pulse */
+  }
+}
+
 .hover-overlay {
   opacity: 0; 
   position: absolute;
@@ -157,8 +222,6 @@ export default {
     white-space: normal;
     font-weight: bold;
 }
-
-
 </style>
 
 

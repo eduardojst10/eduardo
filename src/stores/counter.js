@@ -37,7 +37,7 @@ export const useStore = defineStore({
               name:"FEN Website",
               description:"Music Festival in Várzea Cova, Fafe",
               tech_stack:["React, Javascript"],
-              img:"https://imgur.com/8GAaH8T.png",
+              img:"https://i.imgur.com/myTgUAQ.jpeg",
               url:"https://fafeenosso.pt",
               buttonOption: 'Visit'
             },
