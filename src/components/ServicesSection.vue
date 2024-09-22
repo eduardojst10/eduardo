@@ -7,17 +7,17 @@
             </v-col>
            
            <v-col class="service-names" xs="12"  sm="12" md="4">
-              <p> Git </p>
               <p> Web3 </p>
+              <p> Blockchain </p>
               <p> MicroServices </p>
               <p> Kubernetes </p>
 
            </v-col>
 
            <v-col class="service-names" xs="12"  sm="12" md="4" >
-            <p> Blockchain </p>
             <p> Machine Learning </p>
             <p> Deep Learning </p>
+            <p> Git </p>
            </v-col>
         </v-row>
     </v-container>

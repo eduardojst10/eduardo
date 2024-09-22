@@ -25,6 +25,7 @@
                                 v-if="project.buttonOption === 'Download'"
                                 :href="project.downloadUrl"
                                 :disabled="isDownloading"
+                                download
                                 class="visit-btn mx-auto my-1 mt-2"
                             >
                               
@@ -78,23 +79,6 @@ export default {
     },
     unmounted(){
         window.removeEventListener('resize', this.checkMobile);
-    },
-    methods:{
-        downloadItem({url,label}){
-            this.isDownloading = true; 
-            axios.get(url, {responseType: 'blob'})
-            .then(response => {
-                const blob = new Blob([response.data], { type: 'application/pdf' })
-                const link = document.createElement('a')
-                link.href = URL.createObjectURL(blob)
-                link.download = label
-                link.click()
-                URL.revokeObjectURL(link.href)})
-            .catch((err) => {console.log(err)})
-            .finally(() => {
-                this.isDownloading = false; // Re-enable button
-            });
-        }
     }
 }
 </script>
@@ -158,7 +142,7 @@ export default {
 .touch-icon {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 48.8%;
     color: white;
     font-size: 3rem;
     animation: pulse 2s infinite;

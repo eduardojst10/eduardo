@@ -30,7 +30,7 @@ export const useStore = defineStore({
               description:"Deep Learning approaches for landmark detection in Knee medical images",
               tech_stack:["Python, Pandas, Qt"],
               img:"https://imgur.com/xMFKBjs.png",
-              downloadUrl:"/files/Master_Thesis_Eduardo.pdf",
+              downloadUrl:"/eduardo/files/Master_Thesis_Eduardo.pdf",
               buttonOption:'Download'
             },
             {

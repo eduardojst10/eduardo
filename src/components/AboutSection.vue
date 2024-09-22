@@ -5,12 +5,11 @@
     <!-- First Paragraph -->
     <p>
       I am a Computer Engineering graduate from the University of Minho, currently finalizing my dissertation titled
-      <em>'Deep Learning Techniques for Medical Image Analysis'</em>. With extensive experience in software development and proficiency
-      in <strong>Python</strong>, <strong>Java</strong>, <strong>JavaScript</strong>, <strong>C</strong>, and <strong>C++</strong>, I have honed strong analytical and problem-solving skills. My specific interest in
+      <em>Deep Learning Techniques for Medical Image Analysis</em>. With extensive experience in software development and proficiency
+      in <u>Python</u>, <u>Java</u>, <u>JavaScript</u>, <u>C</u>, and <u>C++</u>, I have honed strong analytical and problem-solving skills. My specific interest in
       Artificial Intelligence, especially Deep Learning, has led me to work on projects like developing a convolutional neural network
       for medical diagnostics. This experience solidified my passion for leveraging AI to solve real-world problems.
     </p>
-
     <!-- Carousel -->
     <v-carousel
       v-model="currentSlide"
@@ -117,23 +116,22 @@ export default {
 @import '../assets/_variables.scss';
     #about{
        padding: 5%;
+       p{
+            padding: 10px;
+            font-weight: 600; 
+            color: #333;
+            font-size: 1.5em;
+       }
        h2{
            font-size: 1.5em;
            text-transform: uppercase;
-           font-weight:1000;
+           font-weight: 1000;
            color:$highlight-color;
            padding-top:15px;
-        }
-        p{
-            padding: 10px;
-            font-weight: bold;
-            color: black;
-            font-size: 1.3em;
         }
         .carousel-container{
           position: relative;
           margin: 20px 0;
-
         }
 
         .carousel-item {
