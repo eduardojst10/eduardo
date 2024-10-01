@@ -1,19 +1,18 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 
 const router = createRouter({
-  history: createWebHashHistory('/eduardo/'),
+  history: createWebHistory('/eduardo/'),
   routes: [
     {
       path: '/',
       name: 'home',
       component: HomeView,
-    },
-    // Add other routes here
+    }
   ],
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior(to, savedPosition) {
     if (to.hash) {
-      const el = to.hash.slice(1); // Remove '#' from the hash
+      const el = to.hash.slice(1);
       if (el) {
         document.getElementById(el)?.scrollIntoView({ behavior: 'smooth' });
       }
