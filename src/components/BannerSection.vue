@@ -4,8 +4,9 @@
       <p class="eyebrow">Software Engineer · Portugal</p>
       <h1 id="hero-title">Eduardo Teixeira</h1>
       <p class="lede">
-        I'm a full stack software engineer at the start of my careeron software development, integrations and
-        infrastructure at KEEP Solutions. I've speciliazed on deep learning research for medical imaging in BiRDLAB (University of Minho).
+        I'm a full stack software engineer at the start of my career, working on software development,
+        integrations and infrastructure at KEEP Solutions. I specialized in deep learning research for
+        medical imaging at BiRDLAB (University of Minho).
       </p>
       <p class="actions">
         <a href="#work">Career</a>
