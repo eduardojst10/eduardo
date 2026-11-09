@@ -1,67 +1,91 @@
 import { defineStore } from 'pinia'
-import _ from 'lodash'
+import fenTeam from '../assets/outside/fen-team.jpg'
+import brussels from '../assets/outside/brussels.jpg'
+import nightOut from '../assets/outside/night-out.jpg'
+import letterboxd from '../assets/letterboxd-decal-dots-pos-mono.svg'
 
 export const useStore = defineStore({
         id: 'store',
         state: () => ({
-          Sociallinks:[
-            {
-              icon:'mdi-facebook',
-              src:'https://www.facebook.com/eduardo.teixeira.1840'
-            },
-            {
-              icon:'mdi-linkedin',
-              src:'https://www.linkedin.com/in/eduardo-teixeira-16b807196/'
-            },
-            {
-              icon:'mdi-github',
-              src:'https://github.com/eduardojst10'
-            },
-            
-            {
-                icon:'mdi-instagram',
-                src:'https://www.instagram.com/eduardojst10/'
-            }
-            
+          contactLinks: [
+            { label: 'LinkedIn', href: 'https://www.linkedin.com/in/eduardo-teixeira-16b807196/', icon: 'mdi-linkedin' },
+            { label: 'GitHub', href: 'https://github.com/eduardojst10', icon: 'mdi-github' },
           ],
-          projects: [
+          // "Work so far", in chronological order. Keep descriptions short: the detail is for interviews.
+          work: [
             {
-              name:"Master's Dissertation",
-              description:"Deep Learning approaches for landmark detection in Knee medical images",
-              tech_stack:["Python, Pandas, Qt"],
-              img:"https://imgur.com/xMFKBjs.png",
-              downloadUrl:"/eduardo/files/Master_Thesis_Eduardo.pdf",
-              buttonOption:'Download'
+              title: "Master's dissertation",
+              where: 'University of Minho',
+              date: 'July 2024',
+              paragraphs: [
+                'Deep learning for detecting anatomical landmarks in knee MRI, including a desktop tool for labelling the images.',
+              ],
+              stack: ['Python', 'TensorFlow', 'PyQt5', 'pydicom'],
+              link: { label: 'Dissertation (PDF, 10 MB)', href: `${import.meta.env.BASE_URL}files/Master_Thesis_Eduardo.pdf` },
             },
             {
-              name:"FEN Website",
-              description:"Music Festival in Várzea Cova, Fafe",
-              tech_stack:["React, Javascript"],
-              img:"https://i.imgur.com/myTgUAQ.jpeg",
-              url:"https://fafeenosso.pt",
-              buttonOption: 'Visit'
+              title: 'Analyst Programmer, Java Developer (professional internship)',
+              where: 'Petrotec, Engineering and Development',
+              date: 'February 2025 – March 2025',
+              paragraphs: [
+                "Part of a small team on an introductory project to monitor outdoor payment terminals, fuel pumps and maintenance metrics across the group's systems.",
+              ],
+              stack: ['Java'],
+            },
+            {
+              title: 'Junior Full Stack Software Engineer',
+              where: 'KEEP Solutions',
+              date: 'May 2025 – present',
+              paragraphs: [
+                "Part of the team behind RODA, an open-source digital preservation platform. I also work on digital signature services and CI/CD for KEEP's clients.",
+              ],
+              stack: ['Java', 'Spring Boot', 'GWT', 'Apache Solr', 'PostgreSQL', 'Docker', 'Shell'],
+              link: { label: 'RODA on GitHub', href: 'https://github.com/keeps/roda' },
+            },
+          ],
+          // Shown in "Beyond the day job", in chronological order.
+          sideProjects: [
+            {
+              title: 'FEN festival website',
+              where: 'Cidade Fulgurante',
+              date: 'February 2024 – present',
+              paragraphs: [
+                'Member of Cidade Fulgurante, the association in Fafe behind the FEN music festival. I help maintain the festival website.',
+              ],
+              stack: ['React', 'JavaScript'],
+              link: { label: 'fafeenosso.pt', href: 'https://fafeenosso.pt' },
+            },
+            {
+              // Internal proof of concept: keep it high level. No client or data source names, no repository link, no screenshots.
+              title: 'Semantic search research',
+              where: 'KEEP Solutions, innovation proof of concept',
+              date: '2026',
+              paragraphs: [
+                'A proof of concept comparing lexical, hybrid and semantic search with Elasticsearch and embedding models. I worked on data preparation, indexing and model benchmarks.',
+              ],
+              stack: ['Python', 'Elasticsearch', 'sentence-transformers', 'MTEB'],
             },
           ],
           carouselImages: [
             {
-              src: 'https://i.imgur.com/sqMaVyC.jpeg',
-              alt: 'FEN Team'
+              src: fenTeam,
+              alt: 'The FEN festival team',
             },
             {
-              src: 'https://i.imgur.com/iGDmapu.jpeg',
-              alt: 'Brussels'
+              src: brussels,
+              alt: 'A selfie with friends at a bar in Brussels',
             },
             {
-              src: 'https://i.imgur.com/OSu4yrL.jpeg',
-              alt: 'Avenida'
-            }
-          ]
+              src: nightOut,
+              alt: "Friends on a night out: 'Malfeito é amor'",
+            },
+          ],
+          outsideLinks: [
+            { label: 'Instagram', href: 'https://www.instagram.com/eduardojst10/', icon: 'mdi-instagram' },
+            { label: 'Letterboxd', href: 'https://letterboxd.com/eduardojst10/', icon: letterboxd },
+            { label: 'Spotify', href: 'https://open.spotify.com/user/11129013284', icon: 'mdi-spotify' },
+          ],
         }),
-        getters: {
-          projectChunks(state) {
-            return _.chunk(state.projects,2)
-          }
-        },
         actions: {
           // async getProjects() {
           //   let res=await client.get('projects');

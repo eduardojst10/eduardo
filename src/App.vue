@@ -12,9 +12,3 @@ export default {
     })
 }
 </script>
-<style>
-@import './assets/main.scss';
-* {
-  font-family: 'Montserrat', sans-serif;
-}
-</style>

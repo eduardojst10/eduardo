@@ -1,4 +1,186 @@
-@import './_variables.scss';
-html {
+// Design tokens: direction A "Catalogue". Components read colours, type and spacing from here.
+:root {
+  --color-bg: #ffffff;
+  --color-surface: #f4f4f5;
+  --color-text: #17181b; // 17.8:1 on bg
+  --color-text-muted: #5b5d63; // 6.6:1 on bg, 6.0:1 on surface
+  --color-rule: #e2e2e5; // decorative dividers only
+  --color-input-border: #8a8c92; // 3.4:1, non-text contrast for form controls
+  --color-accent: #8e1b2e; // 9.0:1 on bg
+  --color-accent-hover: #6f1423;
+  --color-focus: var(--color-accent);
+
+  // Inverse palette for the dark footer. The oxblood accent fails on dark (2:1), so links use a light tint.
+  --color-inverse-bg: #17181b;
+  --color-inverse-text: #ececea; // 15.0:1
+  --color-inverse-muted: #b4b5ba; // 8.7:1
+  --color-inverse-accent: #f2808f; // 7.0:1
+  --color-inverse-rule: #2c2d31; // decorative dividers only
+
+  --font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-body: 'Public Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --text-display: clamp(2.25rem, 1.6rem + 3vw, 3.25rem);
+  --text-h2: 1.75rem;
+  --text-h3: 1.3rem;
+  --text-body: 1.0625rem;
+  --text-small: 0.875rem;
+  --text-meta: 0.8125rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  --content-max: 72rem;
+  --measure: 68ch;
+  --gutter: clamp(1rem, 4vw, 1.5rem);
+  --radius: 4px;
+  --transition: 150ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
     scroll-behavior: smooth;
   }
+}
+
+// .v-application is listed because Vuetify sets its own font stack there.
+body,
+.v-application {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.65;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--text-display);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: var(--text-h2);
+}
+
+h3 {
+  font-size: var(--text-h3);
+  line-height: 1.25;
+}
+
+// v-btn can render as <a>; it keeps its own colours.
+a:not(.v-btn) {
+  color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: color var(--transition);
+
+  &:hover {
+    color: var(--color-accent-hover);
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// Shared layout pieces used by every section.
+.wrap {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  color: var(--color-text-muted);
+}
+
+.section {
+  padding-block: var(--space-8);
+  border-top: 1px solid var(--color-rule);
+}
+
+// Monospace metadata card used by About and Work so far.
+.record-meta {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--space-1) var(--space-4);
+  align-content: start;
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  line-height: 1.5;
+
+  dt {
+    color: var(--color-text-muted);
+  }
+
+  dd {
+    min-width: 0;
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+}
+
+// Dark band used by the header, hero and footer. Redefining --color-focus keeps the focus ring readable.
+.inverse {
+  --color-focus: var(--color-inverse-accent);
+
+  background: var(--color-inverse-bg);
+  color: var(--color-inverse-text);
+
+  h1,
+  h2,
+  h3 {
+    color: var(--color-inverse-text);
+  }
+
+  .eyebrow {
+    color: var(--color-inverse-muted);
+  }
+
+  a:not(.v-btn) {
+    color: var(--color-inverse-accent);
+
+    &:hover {
+      color: var(--color-inverse-text);
+    }
+  }
+}

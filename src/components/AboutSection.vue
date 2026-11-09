@@ -1,174 +1,121 @@
 <template>
-  <div id="about">
-    <h2> ABOUT ME </h2>
-
-    <!-- First Paragraph -->
-    <p>
-      I am a Computer Engineering graduate from the University of Minho, currently finalizing my dissertation titled
-      <em>Deep Learning Techniques for Medical Image Analysis</em>. With extensive experience in software development and proficiency
-      in <u>Python</u>, <u>Java</u>, <u>JavaScript</u>, <u>C</u>, and <u>C++</u>, I have honed strong analytical and problem-solving skills. My specific interest in
-      Artificial Intelligence, especially Deep Learning, has led me to work on projects like developing a convolutional neural network
-      for medical diagnostics. This experience solidified my passion for leveraging AI to solve real-world problems.
-    </p>
-    <!-- Carousel -->
-    <v-carousel
-      v-model="currentSlide"
-      :show-arrows="isDesktop ? 'hover' : false"
-      hide-delimiters
-      :cycle="!dialog"
-      interval="5000"
-      class="carousel-container"
-    >
-      <v-carousel-item
-        v-for="(image, index) in carouselImages"
-        :key="index"
-        @click="openImageInDialog(index)"
-        class="carousel-item"
-      >
-        <v-img
-          :src="image.src"
-          class="carousel-image"
-          cover
-        ></v-img>
-      </v-carousel-item>
-    </v-carousel>
-    
-    <!-- Second and Third Paragraphs -->
-    <p>
-      My lifestyle revolves around creating joyful and engaging experiences for those around me, whether it's through sharing music or
-      spending quality time with friends and companions. I believe that making people happy, entertained, and comfortable fosters strong relationships
-      and collaborative environments.
-    </p>
-
-    <p>
-      I'm eager to join an innovative and collaborative company where I can apply my skills and continue to grow professionally.
-      As a proactive learner and team player, I'm always ready to tackle new challenges and contribute to groundbreaking solutions.
-    </p>
-
-    <!-- Dialog for Fullscreen Images -->
-  <v-dialog v-model="dialog" max-width="65%">
-    <v-carousel
-      v-model="dialogCurrentSlide"
-      hide-delimiters
-      :show-arrows="isDesktop ? 'hover' : false"
-      class="carousel-container"
-    >
-      <v-carousel-item
-        v-for="(image, index) in carouselImages"
-        :key="index"
-      >
-        <v-img
-          :src="image.src"
-          aspect-ratio="16/9"
-          class="fullscreen-image"
-        ></v-img>
-      </v-carousel-item>
-    </v-carousel>
-  </v-dialog>
-  </div>
+  <section id="about" class="section" aria-labelledby="about-title">
+    <div class="wrap about">
+      <h2 id="about-title">About</h2>
+      <div class="body">
+        <p>
+          I studied at the University of Minho, where I completed a Master's in Informatics
+          Engineering with a specialization in Deep Learning in 2024.
+        </p>
+        <p>
+          Since May 2025 I've worked as a junior full stack engineer at KEEP Solutions, on web interfaces, back-end services, integrations and
+          infrastructure.
+        </p>
+        <dl class="record-meta">
+          <template v-for="row in facts" :key="row.label">
+            <dt>{{ row.label }}</dt>
+            <dd>{{ row.value }}</dd>
+          </template>
+        </dl>
+      </div>
+      <div class="side">
+        <div class="frame">
+          <img class="portrait" :src="portrait" alt="Eduardo Teixeira, arms crossed, in front of a stone wall"
+            width="560" height="518" />
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
-
 <script>
-import {useStore} from '../stores/counter'
-import { ref, onBeforeUnmount } from 'vue';
+import portrait from '../assets/portrait.jpg';
+
 export default {
-  name: 'about',
-  setup() {
-    const store = useStore();
-    const carouselImages = store.carouselImages
-    const currentSlide = ref(0)
-    const dialog = ref(false)
-    const dialogCurrentSlide = ref(0);
-
-    const isDesktop = ref(window.innerWidth > 768);
-
-    const openImageInDialog = (index) => {
-      dialogCurrentSlide.value = index;
-      dialog.value = true;
-    };
-
-    const updateIsDesktop = () => {
-      isDesktop.value = window.innerWidth > 768;
-    };
-
-    window.addEventListener('resize', updateIsDesktop);
-
-    onBeforeUnmount(() => {
-      window.removeEventListener('resize', updateIsDesktop);
-    });
-
-    return {
-      carouselImages,
-      currentSlide,
-      dialog,
-      dialogCurrentSlide,
-      openImageInDialog,
-      updateIsDesktop,
-      isDesktop,
-    };
-  },
+  name: 'AboutSection',
+  data: () => ({
+    portrait,
+    facts: [
+      { label: 'Education', value: "Master's in Informatics Engineering, University of Minho, 2024" },
+      { label: 'Languages', value: 'Java, JavaScript, Python, SQL, Shell' },
+      { label: 'Back end', value: 'Spring Boot, Maven, Flyway' },
+      { label: 'Front end', value: 'GWT, Vue, React' },
+      { label: 'Data', value: 'PostgreSQL, Apache Solr' },
+      { label: 'Infra', value: 'Docker, CI/CD pipelines' },
+      { label: 'ML', value: 'TensorFlow, NumPy, pandas' },
+    ],
+  }),
 };
 </script>
 
-
-<style scoped lang="scss"  >
-@import '../assets/_variables.scss';
-    #about{
-       padding: 5%;
-       p{
-            padding: 10px;
-            font-weight: 600; 
-            color: #333;
-            font-size: 1.5em;
-       }
-       h2{
-           font-size: 1.5em;
-           text-transform: uppercase;
-           font-weight: 1000;
-           color:$highlight-color;
-           padding-top:15px;
-        }
-        .carousel-container{
-          position: relative;
-          margin: 20px 0;
-        }
-
-        .carousel-item {
-          width: 100%; 
-          height: 100%;
-        }
-
-        .carousel-image {
-          width: 100%; 
-          height: 100%;
-        }
-        .fullscreen-image {
-            width: 100%;
-            height: 100%;
-        }
+<style scoped lang="scss">
+.about {
+  display: grid;
+  gap: var(--space-5);
 }
-@media (max-width: 1024px) {
-    #about {
-        flex-direction: column; 
+
+.body {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  max-width: var(--measure);
+
+  p {
+    margin: 0;
+  }
+
+  // A little more air between the last paragraph and the facts card.
+  .record-meta {
+    margin-top: var(--space-3);
   }
 }
 
-/* Media Queries for Responsive Design */
-@media (max-width: 768px) {
-  #about {
-    padding: 5%;
-    text-align: center;
+.side {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+}
 
-    p {
-      font-size: 1.1em;
-      text-align: left;
-    }
+// Offset frame: a solid ink block behind the photo, echoing the dark header and footer.
+// The width leaves room for the 10px offset so the block never overflows the column.
+.frame {
+  width: min(calc(100% - 10px), 15rem);
+  box-shadow: 10px 10px 0 var(--color-inverse-bg);
+}
 
-    h2 {
-      font-size: 1.4em;
-    }
+.portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 50% 15%;
+}
+
+// Narrow screens: portrait first, then the text with its facts card.
+@media (max-width: 767.98px) {
+  .side {
+    order: 1;
   }
 
+  .body {
+    order: 2;
+  }
+}
+
+// Same two-column rhythm as the Work so far records.
+@media (min-width: 768px) {
+  .about {
+    grid-template-columns: minmax(0, 1fr) 17rem;
+    grid-template-rows: auto 1fr;
+    column-gap: var(--space-7);
+  }
+
+  // Centred against the whole left column (heading, text and facts card), not pinned to the top.
+  .side {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+  }
 }
 </style>
