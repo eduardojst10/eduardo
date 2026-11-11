@@ -26,10 +26,22 @@
 
       <div class="gallery">
         <!-- No autoplay: an auto-rotating carousel needs a pause control (WCAG 2.2.2). -->
-        <v-carousel class="carousel" height="auto" :show-arrows="true">
+        <v-carousel class="carousel" height="auto" show-arrows="hover" hide-delimiters>
           <v-carousel-item v-for="image in images" :key="image.src" :src="image.src" :alt="image.alt"
-            :aspect-ratio="16 / 9" cover />
+            :position="image.position" :aspect-ratio="16 / 9" cover>
+            <button type="button" class="zoom" aria-label="View photo larger" @click="openViewer(image, $event)"></button>
+          </v-carousel-item>
         </v-carousel>
+
+        <!-- Esc, the backdrop and the close button all close it; focus goes back to the photo that opened it. -->
+        <v-dialog v-model="viewerOpen" width="auto" opacity="0.85" @after-leave="returnFocus">
+          <figure v-if="viewerImage" class="viewer">
+            <img :src="viewerImage.src" :alt="viewerImage.alt" />
+            <button type="button" class="close" aria-label="Close" @click="viewerOpen = false">
+              <span class="mdi mdi-close" aria-hidden="true"></span>
+            </button>
+          </figure>
+        </v-dialog>
 
         <div class="life">
           <div class="body">
@@ -66,6 +78,18 @@ export default {
   setup() {
     const store = useStore();
     return { images: store.carouselImages, links: store.outsideLinks, projects: store.sideProjects };
+  },
+  data: () => ({ viewerOpen: false, viewerImage: null, viewerTrigger: null }),
+  methods: {
+    openViewer(image, event) {
+      this.viewerImage = image;
+      this.viewerTrigger = event.currentTarget;
+      this.viewerOpen = true;
+    },
+    // The dialog has no activator, so Vuetify can't restore focus by itself.
+    returnFocus() {
+      this.viewerTrigger?.focus();
+    },
   },
 };
 </script>
@@ -107,10 +131,70 @@ export default {
   }
 }
 
+// A centred, half-width, 1px rule closes the projects: subtler than the 2px rules between sections.
+// Drawn as a background so it adds no grid item.
+.gallery {
+  padding-top: var(--space-7);
+  background: linear-gradient(var(--color-rule), var(--color-rule)) top center / 50% 1px no-repeat;
+}
+
 .carousel {
   min-width: 0;
   align-self: start;
   background: var(--color-surface);
+}
+
+// Vuetify only reveals hover arrows on :hover. Also show them for keyboard focus,
+// and always on touch screens, which have no hover.
+.carousel:focus-within :deep(.v-window__left),
+.carousel:focus-within :deep(.v-window__right) {
+  transform: translateX(0);
+}
+
+@media (hover: none) {
+  .carousel :deep(.v-window__left),
+  .carousel :deep(.v-window__right) {
+    transform: translateX(0);
+  }
+}
+
+// Invisible button over the whole photo: click or Enter opens the larger view.
+.zoom {
+  position: absolute;
+  inset: 0;
+  cursor: zoom-in;
+
+  &:focus-visible {
+    outline-offset: -4px;
+  }
+}
+
+.viewer {
+  position: relative;
+  margin: 0;
+
+  img {
+    display: block;
+    max-width: 90vw;
+    max-height: 85vh;
+    width: auto;
+    height: auto;
+  }
+}
+
+.close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--color-inverse-bg);
+  color: var(--color-inverse-text);
+  font-size: 1.4rem;
+  --color-focus: var(--color-inverse-accent);
 }
 
 .life {

@@ -2,6 +2,10 @@ import { defineStore } from 'pinia'
 import fenTeam from '../assets/outside/fen-team.jpg'
 import brussels from '../assets/outside/brussels.jpg'
 import nightOut from '../assets/outside/night-out.jpg'
+import lunchWithFriends from '../assets/outside/lunch-with-friends.jpg'
+import groupNight from '../assets/outside/group-night.jpg'
+import festivalPolaroid from '../assets/outside/festival-polaroid.jpg'
+import dissertationDefence from '../assets/outside/dissertation-defence.jpg'
 import letterboxd from '../assets/letterboxd-decal-dots-pos-mono.svg'
 
 export const useStore = defineStore({
@@ -57,7 +61,7 @@ export const useStore = defineStore({
             },
             {
               // Internal proof of concept: keep it high level. No client or data source names, no repository link, no screenshots.
-              title: 'Semantic search research',
+              title: 'semantic-search POC',
               where: 'KEEP Solutions, innovation proof of concept',
               date: '2026',
               paragraphs: [
@@ -67,6 +71,11 @@ export const useStore = defineStore({
             },
           ],
           carouselImages: [
+            {
+              src: dissertationDefence,
+              alt: "Group photo at my master's dissertation presentation, with the title slide on the screen behind",
+              position: 'center 38%',
+            },
             {
               src: fenTeam,
               alt: 'The FEN festival team',
@@ -78,6 +87,21 @@ export const useStore = defineStore({
             {
               src: nightOut,
               alt: "Friends on a night out: 'Malfeito é amor'",
+            },
+            // `position` is the crop focus (object-position): the carousel is 16:9, so taller photos lose most of their height.
+            {
+              src: lunchWithFriends,
+              alt: 'Lunch with friends around a restaurant table',
+              position: 'center 60%',
+            },
+            {
+              src: groupNight,
+              alt: 'A large group of friends gathered in a hall with a wooden ceiling',
+              position: 'center 55%',
+            },
+            {
+              src: festivalPolaroid,
+              alt: 'A polaroid of three friends held up in front of a festival stage at night',
             },
           ],
           outsideLinks: [
